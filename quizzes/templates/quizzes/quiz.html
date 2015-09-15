@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static "quizzes/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "quizzes/css/reveal.css" %}">
+    <link rel="stylesheet" href="{% static "quizzes/css/theme/black.css" %}" id="theme">
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="{% static "quizzes/lib/css/zenburn.css" %}">
+
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            {% for card in cards %}
+            {{ card  | safe}}
+            <br><br>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="result">
+        Your score is: <span id="score"></span>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="{% static "quizzes/js/underscore-min.js" %}"></script>
+<script src="{% static "quizzes/lib/js/head.min.js" %}"></script>
+<script src="{% static "quizzes/js/reveal.js" %}"></script>
+<script src="{% static "quizzes/js/custom-reveal.js" %}"></script>
+
+<script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                overview: false,
+                touch: false,
+                keyboard: false,
+                progress: true
+            });
+
+        </script>
+</html>
