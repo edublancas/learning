@@ -22,6 +22,9 @@ class ListingTests(TestCase):
 
 #Test suite for quiz details
 #Test suite for results details
+#class ResultsTests(TestCase):
+#   def test_route(self):
+
 #Test for result saving
 class SavingTests(TestCase):
     #Saving returns a confirmation message
@@ -41,6 +44,7 @@ class SavingTests(TestCase):
         result = Result.objects.all()[0]
         self.assertEqual(result.name, 'test.md')
         self.assertEqual(result.score, 95.0)
+
 
         
 

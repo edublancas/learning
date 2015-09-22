@@ -30,3 +30,12 @@ def save(request):
         #Save it
         res.save()
         return HttpResponse('Result saved.')
+
+#Show the results for a given deck
+def results(request, deck_name):
+    #Query the db for the Results for that deck
+    r = Result.objects.filter(name=deck_name)
+    #Render template
+    #return HttpResponse('It should be a plot here')
+    context = {}
+    return render(request, 'quizzes/quiz_results.html', context)
