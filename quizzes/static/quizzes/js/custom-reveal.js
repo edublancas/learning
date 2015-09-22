@@ -14,14 +14,24 @@ answers = []
     if (progress === 1) {
         var sum = _.reduce(answers, function(memo, num){ return memo + num; }, 0);
         var score = sum*100/answers.length;
-        console.log("This is the end! Score: "+score);
+        var deck_name = $(".slides").attr("data-deck-name")
+        //console.log("This is the end! Score: "+score+" for: "+deck_name);
 
         //Hide slides
         $(".reveal").hide()
         //Show results
         $("#score").text(score)
         $("#result").show()
-        //Save row to db
+        //Send a POST request
+        $.post("/quizzes/save/",
+        {
+            name: deck_name,
+            score: score
+        },
+            function(data, status){
+            console.log("This is the end! Score: "+score+" for: "+deck_name);
+            console.log("Data: " + data + "\nStatus: " + status);
+        });
     };
 
     // Check if there's a focused element that could be using

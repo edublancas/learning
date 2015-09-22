@@ -1,7 +1,12 @@
 from django.conf.urls import url
 from . import views
 
+#Acces to this routes using /quizzes/urlpattern
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P<deck_name>.+)/$', views.detail, name='detail'),
+    #List decks
+    url(r'^list/$', views.index, name='index'),
+    #Do a quiz
+    url(r'^detail/(?P<deck_name>.+)/$', views.detail, name='detail'),
+    #Save a result
+    url(r'^save/$', views.save, name='save'),
 ]
