@@ -7,10 +7,13 @@ from django.http import JsonResponse
 
 from models import Result
 
-#Shows a list of all available decks
 def index(request):
+    return render(request, 'quizzes/index.html')
+
+#Shows a list of all available decks
+def listing(request):
     context = {'decks': list_decks()}
-    return render(request, 'quizzes/index.html', context)
+    return render(request, 'quizzes/listing.html', context)
 
 #Starts a new quiz based on a selected deck
 def detail(request, deck_name):
@@ -38,7 +41,8 @@ def results(request, deck_name):
     context = {'deck_name': deck_name}
     return render(request, 'quizzes/quiz_results.html', context)
 
-
+#Fetch results for a given deck
+#returns a json response
 def fetch_results(request, deck_name):
     #Query the db for the Results for that deck
     r = Result.objects.filter(name=deck_name)

@@ -1,0 +1,25 @@
+{% extends "quizzes/index.html" %}
+
+{% block body %}
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Deck name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for deck in decks %}
+        <tr>
+            <td>{{ deck }}</td>
+            <td><a href="/quizzes/detail/{{ deck }}/" class="btn btn-primary"> Start quiz </a></td>
+            <td><a href="/quizzes/results/{{ deck }}/" class="btn btn-info"> Review results </a></td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}
+

@@ -1,40 +1,38 @@
+{% extends "quizzes/index.html" %}
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Load c3.css -->
-    <link rel="stylesheet" href="{% static "quizzes/css/c3.min.css" %}">
-</head>
-<body>
+{% block css %}
+<!-- Load c3.css -->
+<link rel="stylesheet" href="{% static "quizzes/css/c3.min.css" %}">
+{% endblock %}
 
-    <div id="chart" data-deck-name="{{ deck_name }}"></div>
+{% block body %}
+<h3>Results for {{ deck_name }}</h3>
+<div id="chart" data-deck-name="{{ deck_name }}"></div>
+{% endblock %}
 
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <!-- Load d3.js and c3.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-    <script src="{% static "quizzes/js/c3.min.js" %}"></script>
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="{% static "quizzes/js/c3.min.js" %}"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        setTimeout(function () {
-            c3.generate({
-                data: {
-                    url: '/quizzes/fetch_results/'+$("#chart").attr("data-deck-name"),
-                    mimeType: 'json',
-                    value: 'scores',
-                    x: 'dates',
-                    xFormat:'%Y-%m-%d %H:%M:%S'
-                },
-                bindto: '#chart',
-                axis: {
-                    x: {type: 'timeseries', tick:{format:'%y-%m-%d %H:%M:%S'}}
-                }
-            });
-        }, 1000);
+    setTimeout(function () {
+        c3.generate({
+            data: {
+                url: '/quizzes/fetch_results/'+$("#chart").attr("data-deck-name"),
+                mimeType: 'json',
+                value: 'scores',
+                x: 'dates',
+                xFormat:'%Y-%m-%d %H:%M:%S'
+            },
+            bindto: '#chart',
+            axis: {
+                x: {type: 'timeseries', tick:{format:'%y-%m-%d %H:%M:%S'}}
+            }
+        });
+    }, 1000);
 
 
-    </script>
-
-</body>
-</html>
+</script>
+{% endblock %}

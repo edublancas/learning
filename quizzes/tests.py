@@ -12,13 +12,13 @@ class ListingTests(TestCase):
         response = c.get('/quizzes/list/')
         self.assertEqual(response.status_code, 200)
     #Test webpage shows al files in decks folder
-    #AND links to each
+    #links to start and links to see results
     def test_listing(self):
         c = Client()
         response = c.get('/quizzes/list/')
         decks = list_decks()
         for deck in decks:
-            self.assertContains(response, text=deck, count=2, status_code=200)
+            self.assertContains(response, text=deck, count=3, status_code=200)
 
 #Test suite for quiz details
 #Test suite for results details
