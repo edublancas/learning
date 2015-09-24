@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 from decks import list_decks, load_deck
 from deck_parser import parse_md
@@ -8,11 +9,19 @@ from django.http import JsonResponse
 from models import Result
 
 def index(request):
-    return render(request, 'quizzes/index.html')
+    return redirect('/quizzes/list/')
 
 #Shows a list of all available decks
 def listing(request):
-    context = {'decks': list_decks()}
+    #Get available decks
+    decks = list_decks()
+    #Based on the decks, get the last score and date
+    r = Result.objects.filter(name__in=decks)
+    print r[0]
+    #Based on the decks, get the next date to be done
+    #Zip lists 
+    decks = [{'name':name, 'last_result':res} for name,res in zip(decks, r)]
+    context = {'decks': decks}
     return render(request, 'quizzes/listing.html', context)
 
 #Starts a new quiz based on a selected deck
@@ -33,6 +42,8 @@ def save(request):
         res = Result(name=name, score=score)
         #Save it
         res.save()
+        #Schedule next date
+        #...
         return HttpResponse('Result saved.')
 
 #Show the results for a given deck
