@@ -1,6 +1,7 @@
 document.addEventListener( 'keydown', onDocumentKeyDown, false );
 
-answers = []
+answers = [];
+result_saved = false;
 
 /**
  * Handler for the document level 'keydown' event.
@@ -10,8 +11,8 @@ answers = []
     
     //When the quiz has ended, shos results
     var progress = Reveal.getProgress(); // 0-1
-    console.log("Progress is: "+progress);
-    if (progress === 1) {
+    //console.log("Progress is: "+progress);
+    if (progress === 1 && !result_saved) {
         var sum = _.reduce(answers, function(memo, num){ return memo + num; }, 0);
         var score = sum*100/answers.length;
         var deck_name = $(".slides").attr("data-deck-name")
@@ -31,6 +32,7 @@ answers = []
             function(data, status){
             console.log("This is the end! Score: "+score+" for: "+deck_name);
             console.log("Data: " + data + "\nStatus: " + status);
+            result_saved = true;
         });
     };
 
@@ -43,6 +45,11 @@ answers = []
     // keyboard modifier key is present
     if( activeElementIsCE || activeElementIsInput || (event.shiftKey && event.keyCode !== 32) || event.altKey || event.ctrlKey || event.metaKey ) return;
 
+    //Check if current slide is question or answer
+    var card_type = Reveal.getCurrentSlide().getAttribute('data-type');
+    //console.log('Card is '+card_type);
+    //Question allows only enter key
+    //Answers allows only T or F key
 
     var triggered = false;
 
@@ -52,23 +59,29 @@ answers = []
         // Assume true and try to prove false
         triggered = true;
 
-        switch( event.keyCode ) {
-            // Enter
-            case 13: 
-                Reveal.down();
-                break;
-            // T (correct answer)
-            case 84:
+        //is question and pressed Enter key
+        if (card_type==='question'){
+            if(event.keyCode===13) Reveal.down();
+            else console.log('Only Enter allowed')
+        //is answer
+        }else if(card_type==='answer'){
+            //Pressed T
+            if(event.keyCode==84){
                 answers.push(1);
                 Reveal.right();
-                break;
-            // F (incorrect answer)
-            case 70:
-                Reveal.right();
+            //Pressed F
+            }else if(event.keyCode==70){
                 answers.push(0);
-                break;
-            default: triggered = false;
-        }
+                Reveal.right();
+
+            }else{
+                triggered = false;
+                console.log('Only T or F allowed')
+            }
+        }else{
+            triggered = false;
+            console.log('Unkwown card type')
+        };
 
     }
 
