@@ -17,7 +17,6 @@ def listing(request):
     decks = list_decks()
     #Based on the decks, get the last score and date
     r = Result.objects.filter(name__in=decks)
-    print r[0]
     #Based on the decks, get the next date to be done
     #Zip lists 
     decks = [{'name':name, 'last_result':res} for name,res in zip(decks, r)]
