@@ -28,7 +28,7 @@ class Result(models.Model):
     date = models.DateTimeField(default=timezone.now)
     deck = models.ForeignKey(Deck)
     def __str__(self):
-        return self.name+' score='+str(self.score)+' date='+str(self.date)
+        return str(self.deck)+' score='+str(self.score)+' date='+str(self.date)
 
 #This model creaters reminders for future quizzes for the user
 class Reminder(models.Model):
