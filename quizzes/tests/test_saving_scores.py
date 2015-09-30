@@ -16,9 +16,13 @@ class SavingTests(TestCase):
         response = c.post('/quizzes/save/', {'deck_id': 1, 'score': 95.0})
         results = Result.objects.all()
         self.assertEqual(len(results), 1, 'No Result object saved')
+    #Test the deck id and score are saver properly
     def test_save_info_to_db(self):
         c = Client()
         response = c.post('/quizzes/save/', {'deck_id': 1, 'score': 95.0})
         result = Result.objects.all()[0]
         self.assertEqual(result.deck_id, 1)
         self.assertEqual(result.score, 95.0)
+    #Quiz score should only be saved once
+    def test_score_saved_one(self):
+        pass

@@ -24,7 +24,7 @@ class ResultsTests(TestCase):
     def test_deck_name_appears(self):
         self.assertContains(ResultsTests.response, text='test_deck_1', count=1, status_code=200)
     #Test plot appears
-    def test_plot_apperas(self):
+    def test_plot_appears(self):
         pass
     #Tests points in plot are correct
     def test_plot_correct(self):
