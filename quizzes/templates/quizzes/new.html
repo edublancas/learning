@@ -1,0 +1,18 @@
+{% extends "quizzes/index.html" %}
+
+{% block body %}
+
+<form action="/quizzes/list/" method="POST">
+  <div class="form-group">
+    <label for="deck-name">Deck name</label>
+    <input class="form-control" id="deck-name" name="deck-name" placeholder="Awesome deck name">
+  </div>
+  <div class="form-group">
+    <label for="deck-filename">Deck filename</label>
+    <input class="form-control" id="deck-filename" name="deck-filename" placeholder="deck.md">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+{% endblock %}
+

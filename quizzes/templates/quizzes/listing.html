@@ -2,6 +2,7 @@
 
 {% block body %}
 
+<a href="/quizzes/new/" class="btn btn-default pull-right">Add new deck</a>
 
 <table class="table table-hover">
     <thead>
@@ -15,10 +16,10 @@
         {% for deck in decks %}
         <tr>
             <td>{{ deck.name }}</td>
-            <td>{{deck.last_result.date}}</td>
-            <td>{{deck.last_result.score}}</td>
-            <td><a href="/quizzes/detail/{{ deck.name }}/" class="btn btn-primary"> Start quiz </a></td>
-            <td><a href="/quizzes/results/{{ deck.name }}/" class="btn btn-info"> Review results </a></td>
+            <td>{{deck.last_done}}</td>
+            <td>{{deck.last_score}}</td>
+            <td><a href="/quizzes/detail/{{ deck.id }}/" class="btn btn-primary"> Start quiz </a></td>
+            <td><a href="/quizzes/results/{{ deck.id }}/" class="btn btn-info"> Review results </a></td>
         </tr>
         {% endfor %}
 

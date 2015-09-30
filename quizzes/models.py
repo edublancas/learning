@@ -1,10 +1,23 @@
 from django.db import models
 
+#Stores a reference to a deck
+class Deck(models.Model):
+    name = models.CharField(max_length=100)
+    filename = models.CharField(max_length=100)
+    def _get_last_done(self):
+        return Deck.objects.raw('SELECT id, date FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])[0].date
+    def _get_last_score(self):
+        return Deck.objects.raw('SELECT id, score FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])[0].score
+
+    last_done = property(_get_last_done)
+    last_score = property(_get_last_score)
+
+
 #This model stores the score for a quiz
 class Result(models.Model):
-    name = models.CharField(max_length=100)
     score = models.FloatField()
     date = models.DateTimeField(auto_now_add=True, blank=True)
+    deck = models.ForeignKey(Deck)
     def __str__(self):
         return self.name+' score='+str(self.score)+' date='+str(self.date)
 
@@ -14,3 +27,4 @@ class Reminder(models.Model):
     deck_name = models.CharField(max_length=100)
     #Date when the quiz needs to be done
     date = models.DateTimeField(auto_now_add=True, blank=True)
+    deck = models.ForeignKey(Deck)

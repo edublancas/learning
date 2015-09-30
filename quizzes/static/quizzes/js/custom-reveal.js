@@ -15,8 +15,8 @@ result_saved = false;
     if (progress === 1 && !result_saved) {
         var sum = _.reduce(answers, function(memo, num){ return memo + num; }, 0);
         var score = sum*100/answers.length;
-        var deck_name = $(".slides").attr("data-deck-name")
-        //console.log("This is the end! Score: "+score+" for: "+deck_name);
+        var deck_id = $(".slides").attr("data-deck-id")
+        //console.log("This is the end! Score: "+score+" for: "+deck_id);
 
         //Hide slides
         $(".reveal").hide()
@@ -26,11 +26,11 @@ result_saved = false;
         //Send a POST request
         $.post("/quizzes/save/",
         {
-            name: deck_name,
+            deck_id: deck_id,
             score: score
         },
             function(data, status){
-            console.log("This is the end! Score: "+score+" for: "+deck_name);
+            console.log("This is the end! Score: "+score+" for: "+deck_id);
             console.log("Data: " + data + "\nStatus: " + status);
             result_saved = true;
         });
