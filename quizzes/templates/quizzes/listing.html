@@ -18,7 +18,7 @@
         <tr>
             <td>{{ deck.name }}</td>
             <td><span class="timeago" title="{{deck.last_done|date:'c'}}">{{deck.last_done}}</span></td>
-            <td>{{deck.last_score}}</td>
+            <td>{{deck.last_score|floatformat}}</td>
             <td><a href="/quizzes/detail/{{ deck.id }}/" class="btn btn-primary"> Start quiz </a></td>
             <td><a href="/quizzes/results/{{ deck.id }}/" class="btn btn-info"> Review results </a></td>
         </tr>
