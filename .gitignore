@@ -1,6 +1,8 @@
 #Ignore env file
 .env
 
+#Ignore db
+db.sqlite3
 
 #### joe made this: https://goel.io/joe
 
