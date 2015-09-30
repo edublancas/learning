@@ -5,9 +5,17 @@ class Deck(models.Model):
     name = models.CharField(max_length=100)
     filename = models.CharField(max_length=100)
     def _get_last_done(self):
-        return Deck.objects.raw('SELECT id, date FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])[0].date
+        q = Deck.objects.raw('SELECT id, date FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])
+        try:
+            return q[0].date
+        except IndexError:
+            return None
     def _get_last_score(self):
-        return Deck.objects.raw('SELECT id, score FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])[0].score
+        q =  Deck.objects.raw('SELECT id, score FROM quizzes_result WHERE deck_id=%s ORDER BY date DESC LIMIT 1', [self.id])
+        try:
+            return q[0].score
+        except IndexError:
+            return None
 
     last_done = property(_get_last_done)
     last_score = property(_get_last_score)
