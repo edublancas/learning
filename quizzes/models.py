@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 #Stores a reference to a deck
 class Deck(models.Model):
@@ -24,7 +25,7 @@ class Deck(models.Model):
 #This model stores the score for a quiz
 class Result(models.Model):
     score = models.FloatField()
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    date = models.DateTimeField(default=timezone.now)
     deck = models.ForeignKey(Deck)
     def __str__(self):
         return self.name+' score='+str(self.score)+' date='+str(self.date)
